@@ -18,10 +18,13 @@
               <div class="flex flex-col items-center justify-center w-1/2">
                 <a href="{{ route('posts.edit', $post) }}" class="mx-auto w-3/4 text-center text-black font-bold py-3 px-4 rounded-md " style="background-color: rgba(183, 227, 248, 0.993);">Modifier : "{{ $post->title }}"</a>
                 <a href="#" class="mx-auto w-3/4 text-center text-black font-bold py-3 px-4 rounded-md " style="background-color: rgba(189, 26, 26, 0.993);" onclick="event.preventDefault; document.getElementById('destroy-post-form').submit();">Supprimer : "{{ $post->title }}"</a>
-                <form action="{{ route('posts.destroy', $post) }}" method="post" id="destroy-post-form">
+                <form method="POST" action="{{ route('posts.destroy', $post) }}">
                   @csrf
                   @method('delete')
-                </form>
+                  <x-dropdown-link :href="route('posts.destroy', $post)" onclick="event.preventDefault(); this.closest('form').submit(); ">
+                    {{ __('Supprimer') }}
+                  </x-dropdown-link>
+              </form>
               </div>
             @endforeach
           </div>
